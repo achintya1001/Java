@@ -1,0 +1,80 @@
+Problem statement
+Given the 'start' and the 'end'' positions of the array 'input'. Your task is to sort the elements between 'start' and 'end' using quick sort.
+
+
+
+Note :
+Make changes in the input array itself.
+Detailed explanation ( Input/output format, Notes, Images )
+Sample Input 1 :
+6 
+2 6 8 5 4 3
+Sample Output 1 :
+2 3 4 5 6 8
+Sample Input 2 :
+5
+1 2 3 5 7
+Sample Output 2 :
+1 2 3 5 7 
+Constraints :
+1 <= N <= 10^3
+0 <= input[i] <= 10^9
+
+
+public class Solution {
+	
+	public static void quickSort(int[] input,int startIndex, int endInedx) {
+	  if (startIndex>=endInedx)
+        {
+            return;
+        }
+        int pivotIndex=partition(input,startIndex,endInedx);
+        quickSort(input, startIndex, pivotIndex-1);
+        quickSort(input,pivotIndex+1,endInedx);
+    }
+    
+    public static int partition(int[] a, int si, int ei)
+    {
+        int pivotElement=a[si];
+        int smallerEleCount=0;
+        for(int i=si+1;i<=ei;i++)
+        {
+            if (a[i]<pivotElement)
+            {
+                smallerEleCount++;
+            }
+        }
+        
+        int temp=a[si+smallerEleCount];
+        a[si+smallerEleCount]=pivotElement;
+        a[si]=temp;
+        
+        int i=si;
+        int j=ei;
+        while(i<j)
+        {
+            if (a[i]<pivotElement)
+            {
+                i++;
+            }
+            else if (a[j]>=pivotElement)
+            {
+                j--;
+            }
+            else
+            {
+                temp=a[i];
+                a[i]=a[j];
+                a[j]=temp;
+                i++;
+                j--;
+            }
+        }
+        
+        return si+smallerEleCount;
+    }
+	
+}
+
+
+        
